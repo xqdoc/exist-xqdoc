@@ -62,6 +62,12 @@
             <artifactId>${project.artifactId}</artifactId>
             <version>${project.version}</version>
         </dependencySet>
+        <!-- https://mvnrepository.com/artifact/org.xqdoc/xqdoc -->
+        <dependencySet>
+            <groupId>org.xqdoc</groupId>
+            <artifactId>xqdoc</artifactId>
+            <version>1.9.9.2</version>
+        </dependencySet>
     </dependencySets>
 
     <!-- register the Java module to eXist-db -->

@@ -64,6 +64,13 @@
             <version>${exist.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.xqdoc/xqdoc -->
+        <dependency>
+            <groupId>org.xqdoc</groupId>
+            <artifactId>xqdoc</artifactId>
+            <version>1.9.9.2</version>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
