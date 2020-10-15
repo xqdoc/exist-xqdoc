@@ -15,8 +15,8 @@
     <artifactId>exist-xqdoc</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>xqDoc App</name>
-    <description>xqDoc App for eXist-db</description>
+    <name>xqDoc Function Documentation</name>
+    <description>Application and library to generate and display XQuery function documentation for eXist-db</description>
     <url>https://xqdoc.org/exist-db/app</url>
 
     <organization>

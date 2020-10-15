@@ -8,7 +8,14 @@ function App() {
   return (
       <Router>
           <NavBar bg="dark" variant="dark" fixed="top">
-              <NavBar.Brand href="./">XQuery Function Documentation</NavBar.Brand>
+              <NavBar.Brand href="./">
+                  <img
+                      id="logo"
+                      alt=""
+                      src="book.svg"
+                      width="80"
+                      height="40"
+                  />{' '}XQuery Function Documentation</NavBar.Brand>
           </NavBar>
       </Router>
   );
