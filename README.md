@@ -19,7 +19,7 @@ The App contains:
 
   1. Modify the `licenses` section in `pom.xml`.
   
-  2. Override the `configuration` of the license-maven-plugin` in `pom.xml`. See: http://code.mycila.com/license-maven-plugin/
+  2. Override the `configuration` of the `license-maven-plugin` in `pom.xml`. See: http://code.mycila.com/license-maven-plugin/
   
   3. Potentially remove or replace `LGPL2.1-template.txt`.
   
