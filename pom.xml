@@ -13,7 +13,7 @@
 
     <groupId>org.xqdoc</groupId>
     <artifactId>exist-xqdoc</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.5</version>
 
     <name>xqDoc Function Documentation</name>
     <description>Application and library to generate and display XQuery function documentation for eXist-db</description>
@@ -52,6 +52,7 @@
 
         <!-- used in the EXPath Package Descriptor -->
         <package-name>https://xqdoc.org/exist-db/app</package-name>
+        <package-abbrev>xqdoc</package-abbrev>
 
         <xqdoc.module.namespace>https://xqdoc.org/exist-db/ns/lib/xqdoc/parse</xqdoc.module.namespace>
         <xqdoc.module.java.classname>XQDocModule</xqdoc.module.java.classname>
