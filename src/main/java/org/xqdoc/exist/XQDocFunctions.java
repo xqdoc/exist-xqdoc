@@ -3,9 +3,7 @@ package org.xqdoc.exist;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.exist.dom.QName;
 import org.exist.dom.memtree.DocumentImpl;
-import org.exist.dom.memtree.MemTreeBuilder;
 import org.exist.xquery.BasicFunction;
 import org.exist.xquery.FunctionSignature;
 import org.exist.xquery.XPathException;
@@ -15,13 +13,10 @@ import org.exist.xquery.value.IntegerValue;
 import org.exist.xquery.value.Sequence;
 import org.exist.xquery.value.StringValue;
 import org.exist.xquery.value.Type;
-import org.xml.sax.InputSource;
 import org.xqdoc.XQueryVisitor;
 
-import javax.xml.transform.Source;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.HashMap;
 
 import static org.exist.xquery.FunctionDSL.*;
