@@ -726,7 +726,7 @@
             raise-error-on-failed-retrieval="no">
 
         <builtin-modules>
-            <module uri="https://xqdoc.org/exist-db/ns/app/my-java-module" class="org.xqdoc.exist.XQDocModule"/>
+            <module uri="https://xqdoc.org/exist-db/ns/lib/xqdoc/parse" class="org.xqdoc.exist.XQDocModule"/>
         </builtin-modules>
     </xquery>
 
