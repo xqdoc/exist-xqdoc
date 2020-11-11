@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import './App.css';
 
 function App() {
