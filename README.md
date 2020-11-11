@@ -1,9 +1,44 @@
 # xqDoc App for eXist-db
 
+[![Build Status](https://travis-ci.com/xqdoc/exist-xqdoc.svg?branch=main)](https://travis-ci.com/xqdoc/exist-xqdoc)
+
 This is a simple skeleton xqDoc App for eXist-db which will be built as an EXPath Package using Maven.
 
 You can use this as a base for your own eXist-db Apps or Libraries.
 
+## Requirements 
+-  Java: `8`
+-  Maven: `3.3+`
+-  Git
+
+### Compatibility
+exist-db: `5.0.0+`
+
+## Building
+If you want to create an EXPath Package for the app, you can run:
+
+```bash
+$ mvn package
+```
+
+There will be a `.xar` file in the `target/` sub-folder.
+
+### Publishing
+You can use the Maven Release plugin to publish your applications **publicly** to Maven Central.
+
+1. You need to register to manage the `groupId` of your organisation on Maven Central, see: [create-a-ticket-with-sonatype](http://central.sonatype.org/pages/ossrh-guide.html#create-a-ticket-with-sonatype)
+
+2. Assuming your Git repo is in-sync, you can simply run the following to upload to Sonatype OSS:
+
+```bash
+$ mvn release:prepare
+$ mvn release:perform
+```
+
+3. You need to release the artifacts on the Sonatype OSS web portal, see: [releasing-to-central](http://central.sonatype.org/pages/ossrh-guide.html#releasing-to-central)
+
+
+## Contents
 
 The App contains:
  
@@ -11,9 +46,9 @@ The App contains:
 
 2. A example XQuery Library Module of user defined functions written in XQuery.
 
-3. A simple Web landing page for the app itself.   
+3. A simple Web landing page for the app itself.
 
-
+### License
 
 1. By default the project is setup for an LGPL 2.1 licensing scheme. You should decide if that is appropriate and if not, make the following modifications:
 
@@ -36,28 +71,3 @@ The App contains:
   * `src/main/xar-resources` for any static files or XQuery modules that are shipped as part of your app. 
 
 NOTE: You will also need to modify `xar-assembly.xml` to reflect any changes you make to user defined XQuery library modules (whether written in Java or XQuery).
-
-
-* Requirements: Java 8, Apache Maven 3.3+, Git.
-
-If you want to create an EXPath Package for the app, you can run:
-
-```bash
-$ mvn package
-```
-
-There will be a `.xar` file in the `target/` sub-folder.
-
-
-You can use the Maven Release plugin to publish your applications **publicly** to Maven Central.
-
-1. You need to register to manage the `groupId` of your organisation on Maven Central, see: http://central.sonatype.org/pages/ossrh-guide.html#create-a-ticket-with-sonatype
-
-2. Assuming your Git repo is in-sync, you can simply run the following to upload to Sonatype OSS:
-
-```bash
-$ mvn release:prepare
-$ mvn release:perform
-```
-
-3. You need to release the artifacts on the Sonatype OSS web portal, see: http://central.sonatype.org/pages/ossrh-guide.html#releasing-to-central

@@ -13,7 +13,7 @@
 
     <groupId>org.xqdoc</groupId>
     <artifactId>exist-xqdoc</artifactId>
-    <version>0.5</version>
+    <version>0.5.0</version>
 
     <name>xqDoc Function Documentation</name>
     <description>Application and library to generate and display XQuery function documentation for eXist-db</description>
@@ -214,6 +214,7 @@
             <plugin>
                 <groupId>ro.kuberam.maven.plugins</groupId>
                 <artifactId>kuberam-expath-plugin</artifactId>
+                <version>0.6.3</version>
                 <executions>
                     <execution>
                         <id>create-xar</id>
