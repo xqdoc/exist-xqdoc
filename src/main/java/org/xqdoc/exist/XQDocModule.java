@@ -16,16 +16,14 @@ import static org.exist.xquery.FunctionDSL.functionDefs;
  */
 public class XQDocModule extends AbstractInternalModule {
 
-    public static final String NAMESPACE_URI = "https://xqdoc.org/exist-db/ns/app/my-java-module";
-    public static final String PREFIX = "myjmod";
+    public static final String NAMESPACE_URI = "https://xqdoc.org/exist-db/ns/lib/xqdoc/parse";
+    public static final String PREFIX = "xqp";
     public static final String RELEASED_IN_VERSION = "eXist-3.6.0";
 
     // register the functions of the module
     public static final FunctionDef[] functions = functionDefs(
         functionDefs(XQDocFunctions.class,
-                XQDocFunctions.FS_HELLO_WORLD,
-                XQDocFunctions.FS_SAY_HELLO,
-                XQDocFunctions.FS_ADD
+                XQDocFunctions.FS_PARSE
         )
     );
 

@@ -4,9 +4,9 @@ xquery version "3.1";
  : A very simple xqdoc XQuery Library Module implemented
  : in XQuery.
  :)
-module namespace myxqmod = "https://xqdoc.org/exist-db/ns/app/my-xquery-module";
+module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";
 
-declare function myxqmod:say-hello($name as xs:string?) as document-node(element(hello)) {
+declare function xqutil:say-hello($name as xs:string?) as document-node(element(hello)) {
     document {
         element hello {
             if($name) then
@@ -17,10 +17,10 @@ declare function myxqmod:say-hello($name as xs:string?) as document-node(element
     }
 };
 
-declare function myxqmod:hello-world() as document-node(element(hello)) {
-    myxqmod:say-hello("world")
+declare function xqutil:hello-world() as document-node(element(hello)) {
+    xqutil:say-hello("world")
 };
 
-declare function myxqmod:add($a as xs:int, $b as xs:int) as xs:int {
+declare function xqutil:add($a as xs:int, $b as xs:int) as xs:int {
     $a + $b
 };

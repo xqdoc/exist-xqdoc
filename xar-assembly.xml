@@ -46,7 +46,7 @@
     <!-- include the XQuery Library modules written in XQuery from this project -->
     <xquerySets>
         <xquerySet>
-            <namespace>https://xqdoc.org/exist-db/ns/app/my-xquery-module</namespace>
+            <namespace>https://xqdoc.org/exist-db/ns/lib/xqdoc/util</namespace>
             <directory>${basedir}/src/main/xquery</directory>
             <includes>
                 <include>xqdoc-module.xqm</include>
@@ -68,13 +68,24 @@
             <artifactId>xqdoc</artifactId>
             <version>1.9.9.2</version>
         </dependencySet>
+        <dependencySet>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.8-1</version>
+        </dependencySet>
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <dependencySet>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.7</version>
+        </dependencySet>
     </dependencySets>
 
     <!-- register the Java module to eXist-db -->
     <components>
         <resource>
             <public-uri>${xqdoc.module.namespace}</public-uri>
-            <file>urn:java:class:org.xqdoc.${xqdoc.module.java.classname}</file>
+            <file>urn:java:class:org.xqdoc.exist.${xqdoc.module.java.classname}</file>
         </resource>
     </components>
 
