@@ -11,7 +11,7 @@ in a Polymer 3 webpage.
 @since 1.0
  :)
 module namespace xq = "http://xqdoc.org/xqrs/resource/xqdoc";
-import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";
+import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util" at "../content/xqdoc-module.xqm";
 
 declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";

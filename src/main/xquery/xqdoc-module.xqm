@@ -45,7 +45,7 @@ declare %private function xqutil:mkcol($collection, $path) {
 
 
 declare function xqutil:generate-root-collection() {
-    if (sm:is-dba(xmldb:get-current-user()))
+    if (sm:id()//sm:group = "dba")
     then
         if (xmldb:collection-available($xqutil:XQDOC_ROOT_COLLECTION))
         then ()
@@ -89,7 +89,7 @@ declare function xqutil:remove-external-xqdoc($uri as xs:anyURI) {
 };
 
 declare function xqutil:generate-internal-xqdocs() {
-    if (sm:is-dba(xmldb:get-current-user()))
+    if (sm:id()//sm:group = "dba")
     then
         let $removed :=
             if (xmldb:collection-available($xqutil:XQDOC_LIB_COLLECTION))
