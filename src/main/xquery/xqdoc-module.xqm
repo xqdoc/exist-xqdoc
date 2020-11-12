@@ -8,6 +8,7 @@ module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";
 import module namespace inspect = "http://exist-db.org/xquery/inspection" at "java:org.exist.xquery.functions.inspect.InspectionModule";
 import module namespace xmldb = "http://exist-db.org/xquery/xmldb";
 import module namespace xqp = "https://xqdoc.org/exist-db/ns/lib/xqdoc/parse";
+import module namespace dbutil="http://exist-db.org/xquery/dbutil";
 import module namespace util = "http://exist-db.org/xquery/util";
 import module namespace sm ="http://exist-db.org/xquery/securitymanager";
 import module namespace  functx = "http://www.functx.com";
@@ -52,6 +53,12 @@ declare function xqutil:generate-root-collection() {
         else xmldb:create-collection($xqutil:XQDOC_PARENT_COLLECTION, $xqutil:XQDOC_ROOT_NAME)
     else ()
 };
+
+declare function xqutil:generate-external-xqdocs() {
+    for $uri in dbutil:find-by-mimetype(xs:anyURI("/db"), "application/xquery")
+    return xqutil:generate-external-xqdoc(xs:anyURI($uri))
+};
+
 
 declare function xqutil:generate-external-xqdoc($uri as xs:anyURI) {
     let $path := functx:substring-before-last(xs:string($uri), '/')

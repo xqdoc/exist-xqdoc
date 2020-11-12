@@ -28,4 +28,5 @@ declare variable $target external;
   so we can now remove it from the app colllection
 :)
 (xqutil:generate-internal-xqdocs(),
+xqutil:generate-external-xqdocs(),
 xmldb:remove($target, "collection.xconf"))
