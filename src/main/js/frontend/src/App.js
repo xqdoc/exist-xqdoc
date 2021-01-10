@@ -192,7 +192,7 @@ function App() {
           </Navbar>
           <Container style={{marginTop: "70px"}} fluid>
               <Row xs={1}>
-                  <Col md={3} xl={2} xs={12} class="sidenav"
+                  <Col md={4} xl={3} xs={12} class="sidenav"
                   >
                       <TreeMenu
                           data={treeData}
@@ -201,11 +201,11 @@ function App() {
                           }}
                       />
                   </Col>
-                  <Col md={9} xl={8} xs={12} >
+                  <Col md={8} xl={7} xs={12} >
                       <Switch>
                           <Route path="/SwaggerUI">
                               <h1>Swagger</h1>
-                              <SwaggerUI></SwaggerUI>
+                              <SwaggerUI url="https://api.mna.dev.spsapps.net/swagger/?format=openapi"></SwaggerUI>
                           </Route>
                           <Route path="/Libraries/:libraryID">
                               <h1>Library</h1>
