@@ -42,136 +42,136 @@ function App() {
             key: 'Libraries',
             label: 'Libraries',
             nodes: [{
-                "key": "http://www.w3.org/2005/xpath-functions/array",
+                "key": "http:~~www.w3.org~2005~xpath-functions~array",
                 "label": "array"
             },{
-                "key": "http://exist-db.org/xquery/backups",
+                "key": "http:~~exist-db.org~xquery~backups",
                 "label": "backups"
             },{
-                "key": "http://exist-db.org/xquery/cache",
+                "key": "http:~~exist-db.org~xquery~cache",
                 "label": "cache"
             },{
-                "key": "http://exist-db.org/xquery/compression",
+                "key": "http:~~exist-db.org~xquery~compression",
                 "label": "compression"
             },{
-                "key": "http://exist-db.org/xquery/console",
+                "key": "http:~~exist-db.org~xquery~console",
                 "label": "console"
             },{
-                "key": "http://exist-db.org/xquery/contentextraction",
+                "key": "http:~~exist-db.org~xquery~contentextraction",
                 "label": "contentextraction"
             },{
-                "key": "http://exist-db.org/xquery/counter",
+                "key": "http:~~exist-db.org~xquery~counter",
                 "label": "counter"
             },{
-                "key": "http://exist-db.org/xquery/cqlparser",
+                "key": "http:~~exist-db.org~xquery~cqlparser",
                 "label": "cqlparser"
             },{
-                "key": "http://exquery.org/ns/restxq/exist",
+                "key": "http:~~exquery.org~ns~restxq~exist",
                 "label": "exrest"
             },{
-                "key": "http://exist-db.org/xquery/file",
+                "key": "http:~~exist-db.org~xquery~file",
                 "label": "file"
             },{
-                "key": "http://www.w3.org/2005/xpath-functions",
+                "key": "http:~~www.w3.org~2005~xpath-functions",
                 "label": "fn"
             },{
-                "key": "http://exist-db.org/xquery/lucene",
+                "key": "http:~~exist-db.org~xquery~lucene",
                 "label": "ft"
             },{
-                "key": "http://expath.org/ns/http-client",
+                "key": "http:~~expath.org~ns~http-client",
                 "label": "hc"
             },{
-                "key": "http://exist-db.org/xquery/image",
+                "key": "http:~~exist-db.org~xquery~image",
                 "label": "image"
             },{
-                "key": "http://exist-db.org/xquery/inspection",
+                "key": "http:~~exist-db.org~xquery~inspection",
                 "label": "inspect"
             },{
-                "key": "http://exist-db.org/xquery/jndi",
+                "key": "http:~~exist-db.org~xquery~jndi",
                 "label": "jndi"
             },{
-                "key": "http://exist-db.org/xquery/mail",
+                "key": "http:~~exist-db.org~xquery~mail",
                 "label": "mail"
             },{
-                "key": "http://www.w3.org/2005/xpath-functions/map",
+                "key": "http:~~www.w3.org~2005~xpath-functions~map",
                 "label": "map"
             },{
-                "key": "http://www.w3.org/2005/xpath-functions/math",
+                "key": "http:~~www.w3.org~2005~xpath-functions~math",
                 "label": "math"
             },{
-                "key": "http://exist-db.org/xquery/ngram",
+                "key": "http:~~exist-db.org~xquery~ngram",
                 "label": "ngram"
             },{
-                "key": "http://exist-db.org/xquery/persistentlogin",
+                "key": "http:~~exist-db.org~xquery~persistentlogin",
                 "label": "plogin"
             },{
-                "key": "http://exist-db.org/xquery/process",
+                "key": "http:~~exist-db.org~xquery~process",
                 "label": "process"
             },{
-                "key": "http://exist-db.org/xquery/range",
+                "key": "http:~~exist-db.org~xquery~range",
                 "label": "range"
             },{
-                "key": "http://exist-db.org/xquery/repo",
+                "key": "http:~~exist-db.org~xquery~repo",
                 "label": "repo"
             },{
-                "key": "http://exquery.org/ns/request",
+                "key": "http:~~exquery.org~ns~request",
                 "label": "req"
             },{
-                "key": "http://exist-db.org/xquery/request",
+                "key": "http:~~exist-db.org~xquery~request",
                 "label": "request"
             },{
-                "key": "http://exist-db.org/xquery/response",
+                "key": "http:~~exist-db.org~xquery~response",
                 "label": "response"
             },{
-                "key": "http://exquery.org/ns/restxq",
+                "key": "http:~~exquery.org~ns~restxq",
                 "label": "rest"
             },{
-                "key": "http://exist-db.org/xquery/scheduler",
+                "key": "http:~~exist-db.org~xquery~scheduler",
                 "label": "scheduler"
             },{
-                "key": "http://exist-db.org/xquery/session",
+                "key": "http:~~exist-db.org~xquery~session",
                 "label": "session"
             },{
-                "key": "http://exist-db.org/xquery/simple-ql",
+                "key": "http:~~exist-db.org~xquery~simple-ql",
                 "label": "simpleql"
             },{
-                "key": "http://exist-db.org/xquery/securitymanager",
+                "key": "http:~~exist-db.org~xquery~securitymanager",
                 "label": "sm"
             },{
-                "key": "http://exist-db.org/xquery/sort",
+                "key": "http:~~exist-db.org~xquery~sort",
                 "label": "sort"
             },{
-                "key": "http://exist-db.org/xquery/sql",
+                "key": "http:~~exist-db.org~xquery~sql",
                 "label": "sql"
             },{
-                "key": "http://exist-db.org/xquery/system",
+                "key": "http:~~exist-db.org~xquery~system",
                 "label": "system"
             },{
-                "key": "http://exist-db.org/xquery/transform",
+                "key": "http:~~exist-db.org~xquery~transform",
                 "label": "transform"
             },{
-                "key": "http://exist-db.org/xquery/util",
+                "key": "http:~~exist-db.org~xquery~util",
                 "label": "util"
             },{
-                "key": "http://exist-db.org/xquery/validation",
+                "key": "http:~~exist-db.org~xquery~validation",
                 "label": "validation"
             },{
-                "key": "http://exist-db.org/xquery/xmldb",
+                "key": "http:~~exist-db.org~xquery~xmldb",
                 "label": "xmldb"
             },{
-                "key": "http://exist-db.org/xquery/xmldiff",
+                "key": "http:~~exist-db.org~xquery~xmldiff",
                 "label": "xmldiff"
             },{
-                "key": "http://exist-db.org/xquery/xqdoc",
+                "key": "http:~~exist-db.org~xquery~xqdoc",
                 "label": "xqdm"
             },{
-                "key": "https://xqdoc.org/exist-db/ns/lib/xqdoc/parse",
+                "key": "https:~~xqdoc.org~exist-db~ns~lib~xqdoc~parse",
                 "label": "xqp"
             },{
-                "key": "http://exist-db.org/xquery/xslfo",
+                "key": "http:~~exist-db.org~xquery~xslfo",
                 "label": "xslfo"
             },{
-                "key": "http://expath.org/ns/zip",
+                "key": "http:~~expath.org~ns~zip",
                 "label": "zip"
             }]
         },
@@ -191,10 +191,27 @@ function App() {
           </Navbar>
           <Container style={{marginTop: "70px"}} fluid>
               <Row xs={1}>
-                  <Col md={3} xl={2} xs={12} class="sidenav">
-                      <TreeMenu data={treeData} />
+                  <Col md={3} xl={2} xs={12} class="sidenav"
+                  >
+                      <TreeMenu
+                          data={treeData}
+                          onClickItem={({ key, label, ...props }) => {
+                              console.log(key);
+                          }}
+                      />
                   </Col>
                   <Col md={9} xl={8} xs={12} >
+                      <Switch>
+                          <Route path="/Libraries/:libraryID">
+                              <h1>Library</h1>
+                          </Route>
+                          <Route path="/Applications/:applicationID">
+                              <h1>Application</h1>
+                          </Route>
+                          <Route exact path="/">
+                              <h1>Home</h1>
+                          </Route>
+                      </Switch>
                   </Col>
               </Row>
           </Container>
