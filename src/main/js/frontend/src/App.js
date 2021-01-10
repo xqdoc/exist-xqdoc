@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import SwaggerClient from 'swagger-client';
+import SwaggerUI from "swagger-ui-react"
+import "swagger-ui-react/swagger-ui.css"
 import TreeMenu from 'react-simple-tree-menu'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -202,6 +203,10 @@ function App() {
                   </Col>
                   <Col md={9} xl={8} xs={12} >
                       <Switch>
+                          <Route path="/SwaggerUI">
+                              <h1>Swagger</h1>
+                              <SwaggerUI></SwaggerUI>
+                          </Route>
                           <Route path="/Libraries/:libraryID">
                               <h1>Library</h1>
                           </Route>
