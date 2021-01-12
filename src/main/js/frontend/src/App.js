@@ -205,7 +205,7 @@ function App() {
                       <Switch>
                           <Route path="/SwaggerUI">
                               <h1>Swagger</h1>
-                              <SwaggerUI url="https://api.mna.dev.spsapps.net/swagger/?format=openapi"></SwaggerUI>
+                              <SwaggerUI url="/exist/restxq/xqdoc/openapi"></SwaggerUI>
                           </Route>
                           <Route path="/Libraries/:libraryID">
                               <h1>Library</h1>
