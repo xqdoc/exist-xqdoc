@@ -168,8 +168,8 @@
                 https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
                 <version>1.10.0</version>
                 <configuration>
-                    <nodeVersion>v14.13.1</nodeVersion>
-                    <npmVersion>6.14.8</npmVersion>
+                    <nodeVersion>v14.5.0</nodeVersion>
+                    <npmVersion>6.14.6</npmVersion>
                     <workingDirectory>src/main/js/frontend</workingDirectory>
                 </configuration>
                 <executions>
