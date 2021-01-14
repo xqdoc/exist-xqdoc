@@ -1,7 +1,7 @@
 xquery version "3.1";
 
 import module namespace xmldb = "http://exist-db.org/xquery/xmldb";
-import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";
+(:import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";:)
 
 (:~
  : This script will be executed after your application
@@ -23,10 +23,19 @@ declare variable $dir external;
 (: the target collection into which the app is deployed :)
 declare variable $target external;
 
+let $a :=
+(
+    sm:chown(xs:anyURI($target || "/modules/regenerate.xq"), "admin"),
+    sm:chgrp(xs:anyURI($target || "/modules/regenerate.xq"), "dba"),
+    sm:chmod(xs:anyURI($target || "/modules/regenerate.xq"), "rwsrwxr-x")
+)
+
+
 (:
   collection configuration was copied to the system config collection by pre-install.xq
   so we can now remove it from the app colllection
 :)
-(xqutil:generate-internal-xqdocs(),
-xqutil:generate-external-xqdocs(),
+return
+( (:xqutil:generate-internal-xqdocs(),
+xqutil:generate-external-xqdocs(), :)
 xmldb:remove($target, "collection.xconf"))
