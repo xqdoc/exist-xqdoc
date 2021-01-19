@@ -109,7 +109,7 @@ declare function xqutil:generate-internal-xqdocs() {
         return
             for $reg in util:registered-modules()
             order by $reg
-            let $meta := inspect:inspect-module-uri($reg)
+            let $meta := try { inspect:inspect-module-uri($reg) } catch * { () }
             return
                 if ($meta)
                 then
