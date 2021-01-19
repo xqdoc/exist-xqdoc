@@ -1,7 +1,7 @@
 xquery version "3.1";
 
 import module namespace xmldb = "http://exist-db.org/xquery/xmldb";
-(:import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";:)
+import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";
 
 (:~
  : This script will be executed after your application
@@ -36,6 +36,6 @@ let $a :=
   so we can now remove it from the app colllection
 :)
 return
-( (:xqutil:generate-internal-xqdocs(),
-xqutil:generate-external-xqdocs(), :)
+( xqutil:generate-internal-xqdocs(),
+xqutil:generate-external-xqdocs(),
 xmldb:remove($target, "collection.xconf"))
