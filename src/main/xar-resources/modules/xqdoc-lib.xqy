@@ -12,6 +12,7 @@ in a Polymer 3 webpage.
  :)
 module namespace xq = "http://xqdoc.org/xqrs/resource/xqdoc";
 import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util" at "../content/xqdoc-module.xqm";
+import module namespace functx = "http://www.functx.com";
 
 declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -421,6 +422,54 @@ declare function xq:imports($imports as node()*) {
             "uri": fn:substring(fn:substring($uri, 1, fn:string-length($uri) - 1), 2),
             "type": xs:string($import/@type)
         }
+};
+
+declare
+%rest:GET
+%rest:path("/xqdoc/menu")
+%rest:produces("application/json")
+%output:media-type("application/json")
+%output:method("json")
+function xq:menu()
+{
+    array {
+        map {
+            "key": 'SwaggerUI',
+            "label": 'Rest APIs'
+        },
+        map {
+            "key": 'Applications',
+            "label": 'Applications',
+            "nodes": array {
+            for $app in functx:sort(xmldb:get-child-collections("/db/system/xqDoc/db/apps"))
+            return
+                map {
+                    "key": $app,
+                    "label": $app
+                }
+            }
+        },
+        map {
+            "key": 'Libraries',
+            "label": 'Libraries',
+            "nodes": array {
+            for $lib in fn:collection("/db/system/xqDoc/lib")//xqdoc:xqdoc
+            let $prefix := ($lib/xqdoc:module/xqdoc:name/text(), "fn")[1]
+            let $namespace := $lib/xqdoc:module/xqdoc:uri/text()
+            let $desc := $lib/xqdoc:module/xqdoc:comment/xqdoc:description/text()
+            let $location := $lib/xqdoc:control/xqdoc:location/text()
+            order by $prefix ascending
+            return
+                map {
+                    "key": fn:replace($namespace, "/", "~"),
+                    "label": $prefix,
+                    "namespace": $namespace,
+                    "description": $desc,
+                    "location": $location
+                }
+            }
+        }
+    }
 };
 
 (:~
