@@ -106,9 +106,14 @@ as map(*)?
             }
         else ()
 
-    let $tags-array :=
+    let $tags-array := (
+              if (fn:contains(fn:base-uri($function), "/db/apps/"))
+              then
+              fn:substring-before(fn:substring-after(fn:base-uri($function), "/db/apps/"), "/")
+              else (),
               for $tag in $function//xqdoc:custom[@tag = 'openapi-tag']
               return fn:normalize-space($tag/text())
+    )
 
     let $request-body :=
         if ($function//xqdoc:annotation[fn:starts-with(@name, "rest:consumes")])
