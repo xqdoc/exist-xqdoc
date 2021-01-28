@@ -12,7 +12,6 @@ in a Polymer 3 webpage.
  :)
 module namespace xq = "http://xqdoc.org/xqrs/resource/xqdoc";
 import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util" at "../content/xqdoc-module.xqm";
-import module namespace functx = "http://www.functx.com";
 
 declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -441,7 +440,7 @@ function xq:menu()
             "key": 'Applications',
             "label": 'Applications',
             "nodes": array {
-            for $app in functx:sort(xmldb:get-child-collections("/db/system/xqDoc/db/apps"))
+            for $app in fn:sort(xmldb:get-child-collections("/db/system/xqDoc/db/apps"))
             return
                 map {
                     "key": $app,
