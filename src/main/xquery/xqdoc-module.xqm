@@ -26,13 +26,13 @@ declare variable $xqutil:XQDOC_ROOT_COLLECTION := $xqutil:XQDOC_PARENT_COLLECTIO
 declare variable $xqutil:XQDOC_LIB_NAME := "lib";
 declare variable $xqutil:XQDOC_LIB_COLLECTION := $xqutil:XQDOC_ROOT_COLLECTION || "/" || $xqutil:XQDOC_LIB_NAME;
 
-declare %private function xqutil:mkcol-recursive($collection, $components) {
+declare function xqutil:mkcol-recursive($collection, $components) {
     if (exists($components)) then
         let $newColl := concat($collection, "/", $components[1])
         return (
-            if (xmldb:collection-available($newColl))
+            if (xmldb:collection-available(xmldb:encode-uri($newColl)))
             then ()
-            else xmldb:create-collection($collection, $components[1]),
+            else xmldb:create-collection(xmldb:encode-uri($collection), xmldb:encode-uri($components[1])),
             xqutil:mkcol-recursive($newColl, subsequence($components, 2))
         )
     else
@@ -40,7 +40,7 @@ declare %private function xqutil:mkcol-recursive($collection, $components) {
 };
 
 (: Helper function to recursively create a collection hierarchy. :)
-declare %private function xqutil:mkcol($collection, $path) {
+declare function xqutil:mkcol($collection, $path) {
     xqutil:mkcol-recursive($collection, tokenize($path, "/"))
 };
 
@@ -61,9 +61,10 @@ declare function xqutil:generate-external-xqdocs() {
 
 
 declare function xqutil:generate-external-xqdoc($uri as xs:anyURI) {
-    let $path := functx:substring-before-last(xs:string($uri), '/')
-    let $resource := functx:substring-after-last(xs:string($uri), '/')
-    let $extension := functx:substring-after-last(xs:string($uri), '.')
+    let $decoded := xmldb:decode-uri($uri)
+    let $path := functx:substring-before-last($decoded, '/')
+    let $resource := functx:substring-after-last($decoded, '/')
+    let $extension := functx:substring-after-last($decoded, '.')
     let $processed :=
         if (fn:starts-with($extension, "xq"))
         then
@@ -81,14 +82,15 @@ declare function xqutil:generate-external-xqdoc($uri as xs:anyURI) {
 };
 
 declare function xqutil:remove-external-xqdoc($uri as xs:anyURI) {
-    let $path := functx:substring-before-last(xs:string($uri), '/')
-    let $resource := functx:substring-after-last(xs:string($uri), '/')
-    let $extension := functx:substring-after-last(xs:string($uri), '.')
+    let $decoded := xmldb:decode-uri($uri)
+    let $path := functx:substring-before-last($decoded, '/')
+    let $resource := functx:substring-after-last($decoded, '/')
+    let $extension := functx:substring-after-last($decoded, '.')
     let $processed :=
         if (fn:starts-with($extension, "xq"))
         then
-            if (fn:doc-available($xqutil:XQDOC_ROOT_COLLECTION || $path || "/" || $resource || ".xml"))
-            then xmldb:remove($xqutil:XQDOC_ROOT_COLLECTION || $path,$resource || ".xml")
+            if (fn:doc-available(xmldb:encode-uri($xqutil:XQDOC_ROOT_COLLECTION || $path || "/" || $resource || ".xml")))
+            then xmldb:remove(xmldb:encode-uri($xqutil:XQDOC_ROOT_COLLECTION || $path),xmldb:encode-uri($resource || ".xml"))
                 ()
             else ()
         else ()
@@ -107,7 +109,7 @@ declare function xqutil:generate-internal-xqdocs() {
         return
             for $reg in util:registered-modules()
             order by $reg
-            let $meta := inspect:inspect-module-uri($reg)
+            let $meta := try { inspect:inspect-module-uri($reg) } catch * { () }
             return
                 if ($meta)
                 then

@@ -53,6 +53,22 @@
             </includes>
             <outputDirectory>content</outputDirectory>
         </xquerySet>
+        <xquerySet>
+            <namespace>http://xqdoc.org/resource/xqdoc/docbook</namespace>
+            <directory>${basedir}/src/main/xquery</directory>
+            <includes>
+                <include>xqdoc-docbook-lib.xqm</include>
+            </includes>
+            <outputDirectory>content</outputDirectory>
+        </xquerySet>
+        <xquerySet>
+            <namespace>http://xqdoc.org/library/xqdoc/openapi</namespace>
+            <directory>${basedir}/src/main/xquery</directory>
+            <includes>
+                <include>xqdoc2openapi-lib.xqm</include>
+            </includes>
+            <outputDirectory>content</outputDirectory>
+        </xquerySet>
     </xquerySets>
 
     <!-- include the XQuery Library Module written in Java (JAR output) from this project -->

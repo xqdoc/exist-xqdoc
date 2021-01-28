@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
+  "proxy": "http://localhost:8080/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -15,7 +16,9 @@
     "react-router-dom": "^5.2.0",
     "react-router-relative-link": "^4.0.2",
     "react-scripts": "^3.4.4",
-    "swagger-client": "^3.12.0"
+    "react-simple-tree-menu": "^1.1.18",
+    "swagger-ui-react": "^3.39.0",
+    "vendor-copy": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +40,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "vendorCopy": [
+    {
+      "from": "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+      "to": "public/vendor/custom-elements-es5-adapter.js"
+    },
+    {
+      "from": "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
+      "to": "public/vendor/webcomponents-bundle.js"
+    }
+  ]
 }

@@ -2,3 +2,61 @@
   text-align: center;
 }
 
+Col {
+
+}
+
+/*sidebar*/
+
+.sidenav {
+  position: fixed;
+  left: 0px;
+  top: 75px;
+  font-family: 'ArialMT', 'Arial', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: normal;
+  color: #333333;
+  vertical-align: none;
+  text-align: center;
+  line-height: normal;
+  text-transform: none;
+  transition: 0.5s;
+  bottom: 0;
+  overflow-y: auto;
+  box-shadow: 8px 2px 8px rgba(136, 139, 141, 0.2);
+
+}
+
+.sidenav::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+.sidenav::-webkit-scrollbar  {
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+.sidenav::-webkit-scrollbar-thumb  {
+  background-color: #343a40;
+}
+
+.side-container {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 283px;
+  min-height: 100%;
+  background-image: none;
+  border: none;
+  border-radius: 0px;
+  box-shadow: 8px 2px 8px rgba(136, 139, 141, 0.2);
+  transition: 0.5s;
+}
+
+.side-content {
+  padding: 10px;
+  overflow-x: hidden;
+}
