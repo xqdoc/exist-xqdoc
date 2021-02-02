@@ -69,6 +69,7 @@ class App extends Component {
                           data={this.state.menu}
                           onClickItem={({key, label, ...props}) => {
                               console.log(key);
+                              window.location.assign("/exist/apps/xqdoc/#/" + key);
                           }}
                       />
                   </Col>

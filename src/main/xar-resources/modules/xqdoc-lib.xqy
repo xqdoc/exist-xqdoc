@@ -10,7 +10,7 @@ in a Polymer 3 webpage.
 @version 1.0
 @since 1.0
  :)
-module namespace xq = "http://xqdoc.org/xqrs/resource/xqdoc";
+module namespace xq = "http://xqdoc.org/restxq/resource/xqdoc";
 import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util" at "../content/xqdoc-module.xqm";
 
 declare namespace rest = "http://exquery.org/ns/restxq";

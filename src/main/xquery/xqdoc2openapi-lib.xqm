@@ -42,7 +42,7 @@ as xs:string
 
 (:~
  :)
-declare function xqdoc2openapi:schema-object($type as node())
+declare function xqdoc2openapi:schema-object($type as node(), $enums as map(*))
 as map(*)
 {
     map:merge((
@@ -58,6 +58,7 @@ as map(*)
             map {
                 "type": $type/text()
             },
+            $enums,
             switch ($type/@occurrence/string())
             case "*" return map { "minItems": 0 }
             case "+" return map { "minItems": 1 }
@@ -72,12 +73,24 @@ as map(*)
 declare function xqdoc2openapi:parameter-object($name as xs:string, $pname as xs:string, $in as xs:string, $description as xs:string?, $parameters as node()?)
 as map(*)
 {
+let $enums :=
+             if ($parameters/../xqdoc:comment/xqdoc:custom[@tag = "openapi-enum"][fn:starts-with(., "$" || $name)])
+             then map { "enum" : array {
+                 let $text := $parameters/../xqdoc:comment/xqdoc:custom[@tag = "openapi-enum"][fn:starts-with(., "$" || $name)]/text()
+                 let $after := fn:substring-after($text, "$" || $name)
+                 return
+                     for $token in fn:tokenize($after, ",")
+                     return fn:normalize-space($token)
+             }}
+             else map {}
+return
     map:merge((
         map{ "name": $name },
         map{ "in": $in },
         map{ "description": $description },
         if ($parameters/xqdoc:parameter[xqdoc:name = $pname][xqdoc:type])
-        then map{ "schema": xqdoc2openapi:schema-object($parameters/xqdoc:parameter[xqdoc:name = $pname]/xqdoc:type) }
+        then
+            map{ "schema": xqdoc2openapi:schema-object($parameters/xqdoc:parameter[xqdoc:name = $pname]/xqdoc:type, $enums) }
         else ()
     ))
 };

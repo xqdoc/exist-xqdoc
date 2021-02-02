@@ -31,7 +31,6 @@ in a Polymer 3 webpage.
 module namespace xqdb = "http://xqdoc.org/resource/xqdoc/docbook";
 
 declare namespace rest = "http://exquery.org/ns/restxq";
-declare namespace rapi = "http://marklogic.com/rest-api";
 
 declare namespace xqdoc = "http://www.xqdoc.org/1.0";
 declare namespace db = "http://docbook.org/ns/docbook";
