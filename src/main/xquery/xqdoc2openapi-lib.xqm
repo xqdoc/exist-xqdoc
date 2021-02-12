@@ -12,7 +12,7 @@ declare variable $xqdoc2openapi:service-names := ("rest:GET", "rest:HEAD", "rest
 
 (:~
  :)
-declare function xqdoc2openapi:param-name($literal as node())
+declare function xqdoc2openapi:param-name($literal as xs:string)
 as xs:string
 {
     fn:substring(fn:substring-after(fn:substring-before(xs:string($literal), "}"), "{"), 2)
@@ -20,10 +20,10 @@ as xs:string
 
 (:~
  :)
-declare function xqdoc2openapi:get-parameter-description($function as node(), $literal as node())
+declare function xqdoc2openapi:get-parameter-description($function as node(), $literal as xs:string)
 as xs:string
 {
-  let $param-name := fn:substring-after(fn:substring-before(xs:string($literal), "}"), "{")
+  let $param-name := fn:substring-after(fn:substring-before($literal, "}"), "{")
   return xqdoc2openapi:get-string-parameter-description($function, $param-name)
 };
 
@@ -95,6 +95,14 @@ return
     ))
 };
 
+declare function xqdoc2openapi:process-literal($literal as xs:string) as xs:string
+{
+    if (fn:starts-with($literal, '"') and fn:ends-with($literal, '"'))
+    then
+    fn:substring(fn:substring($literal, 1, fn:string-length($literal) - 1), 2)
+    else $literal
+};
+
 (:~
  :)
 declare function xqdoc2openapi:service-object($function as node()?, $path as xs:string)
@@ -114,7 +122,7 @@ as map(*)?
                     for $producer in $function//xqdoc:annotation[fn:starts-with(@name, "rest:produces")]
                     return
                     for $literal in $producer/xqdoc:literal
-                    return map { xs:string($literal) : map { "schema": map { "type": "object" } } }
+                    return map { xqdoc2openapi:process-literal($literal) : map { "schema": map { "type": "object" } } }
                 )
             }
         else ()
@@ -137,7 +145,7 @@ as map(*)?
             return
                 for $literal in $consumer/xqdoc:literal
                 let $consumes-opject := map { "schema" : map { "type" : "object" } }
-                return map { xs:string($literal) : $consumes-opject }
+                return map { xqdoc2openapi:process-literal($literal) : $consumes-opject }
 
                 )
             }
@@ -145,24 +153,24 @@ as map(*)?
 
     let $parameters-array := (
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:form-param")]
-                let $name := $param/xqdoc:literal[1]/text()
-                let $pname := xqdoc2openapi:param-name($param/xqdoc:literal[2])
-                let $description := xqdoc2openapi:get-parameter-description($function, $param/xqdoc:literal[2])
+                let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
+                let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
+                let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "formData", $description, $function//xqdoc:parameters),
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:query-param")]
-                let $name := $param/xqdoc:literal[1]/text()
-                let $pname := xqdoc2openapi:param-name($param/xqdoc:literal[2])
-                let $description := xqdoc2openapi:get-parameter-description($function, $param/xqdoc:literal[2])
+                let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
+                let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
+                let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "query", $description, $function//xqdoc:parameters),
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:header-param")]
-                let $name := $param/xqdoc:literal[1]/text()
-                let $pname := xqdoc2openapi:param-name($param/xqdoc:literal[2])
-                let $description := xqdoc2openapi:get-parameter-description($function, $param/xqdoc:literal[2])
+                let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
+                let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
+                let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "header", $description, $function//xqdoc:parameters),
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:cookie-param")]
-                let $name := $param/xqdoc:literal[1]/text()
-                let $pname := xqdoc2openapi:param-name($param/xqdoc:literal[2])
-                let $description := xqdoc2openapi:get-parameter-description($function, $param/xqdoc:literal[2])
+                let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
+                let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
+                let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "cookie", $description, $function//xqdoc:parameters),
                 for $param in $path-parameters
                 let $name := fn:substring($param, 2)
@@ -192,13 +200,16 @@ as map(*)
 {
 let $functions := fn:collection("/db/system/xqDoc")//xqdoc:xqdoc/xqdoc:functions/xqdoc:function[xqdoc:annotations/xqdoc:annotation[@name = "rest:path"]]
 let $path-names :=
-    for $path in fn:distinct-values($functions//xqdoc:annotation[@name = "rest:path"]/xqdoc:literal[1]/text())
+    for $path in fn:distinct-values(
+                    for $literal in $functions//xqdoc:annotation[@name = "rest:path"]/xqdoc:literal[1]
+                    return xqdoc2openapi:process-literal($literal)
+                    )
     order by $path
     return $path
 
 let $paths :=
     for $path in $path-names
-    let $path-functions := $functions[xqdoc:annotations/xqdoc:annotation[@name = "rest:path"][xqdoc:literal = $path]]
+    let $path-functions := $functions[xqdoc:annotations/xqdoc:annotation[@name = "rest:path"][xqdoc2openapi:process-literal(xqdoc:literal) = $path]]
     let $services := (
           if (fn:not($path-functions[xqdoc:annotations/xqdoc:annotation[@name = $xqdoc2openapi:service-names]]))
           then

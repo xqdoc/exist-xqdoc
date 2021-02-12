@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col';
 import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
 // import default minimal styling or your own styling
 import '../node_modules/react-simple-tree-menu/dist/main.css';
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
 import './App.css';
 
 // <SwaggerClient
