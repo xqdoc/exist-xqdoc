@@ -70,7 +70,7 @@ as map(*)
 
 (:~
  :)
-declare function xqdoc2openapi:parameter-object($name as xs:string, $pname as xs:string, $in as xs:string, $description as xs:string?, $parameters as node()?)
+declare function xqdoc2openapi:parameter-object($name as xs:string, $pname as xs:string?, $in as xs:string, $description as xs:string?, $parameters as node()?)
 as map(*)
 {
 let $enums :=
@@ -88,7 +88,11 @@ return
         map{ "name": $name },
         map{ "in": $in },
         map{ "description": $description },
-        if ($parameters/xqdoc:parameter[xqdoc:name = $pname][xqdoc:type])
+        if ($in = "body")
+        then
+            map { "schema": map { "type": "object" } }
+        else
+        if ($pname and $parameters/xqdoc:parameter[xqdoc:name = $pname][xqdoc:type])
         then
             map{ "schema": xqdoc2openapi:schema-object($parameters/xqdoc:parameter[xqdoc:name = $pname]/xqdoc:type, $enums) }
         else ()
@@ -136,10 +140,13 @@ as map(*)?
               return fn:normalize-space($tag/text())
     )
 
+    let $post-put := $function//xqdoc:annotation[fn:starts-with(@name, "rest:POST") or fn:starts-with(@name, "rest:PUT")]
     let $request-body :=
-        if ($function//xqdoc:annotation[fn:starts-with(@name, "rest:consumes")])
+        if ($post-put)
         then
             map {
+                "description": xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($post-put/xqdoc:literal[1])),
+                "required": fn:true(),
                 "content" : map:merge(
             for $consumer in $function//xqdoc:annotation[fn:starts-with(@name, "rest:consumes")]
             return
@@ -152,30 +159,37 @@ as map(*)?
         else ()
 
     let $parameters-array := (
+
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:form-param")]
                 let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
                 let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "formData", $description, $function//xqdoc:parameters),
+
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:query-param")]
                 let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
                 let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "query", $description, $function//xqdoc:parameters),
+
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:header-param")]
                 let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
                 let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "header", $description, $function//xqdoc:parameters),
+
                 for $param in $function//xqdoc:annotation[fn:starts-with(@name, "rest:cookie-param")]
                 let $name := xqdoc2openapi:process-literal($param/xqdoc:literal[1])
                 let $pname := xqdoc2openapi:param-name(xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 let $description := xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($param/xqdoc:literal[2]))
                 return xqdoc2openapi:parameter-object($name, $pname, "cookie", $description, $function//xqdoc:parameters),
+
                 for $param in $path-parameters
                 let $name := fn:substring($param, 2)
                 let $description := xqdoc2openapi:get-string-parameter-description($function, $param)
-                return xqdoc2openapi:parameter-object($name, $name, "path", $description, $function//xqdoc:parameters)
+                return xqdoc2openapi:parameter-object($name, $name, "path", $description, $function//xqdoc:parameters),
+
+                ()
     )
     return map:merge((
             map { "description" : fn:string-join($function/xqdoc:comment/xqdoc:description/text()) },
