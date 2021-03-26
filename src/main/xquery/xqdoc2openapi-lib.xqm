@@ -122,12 +122,16 @@ as map(*)?
         if ($function//xqdoc:annotation[fn:starts-with(@name, "rest:produces")])
         then
             map {
-                "content" : map:merge(
-                    for $producer in $function//xqdoc:annotation[fn:starts-with(@name, "rest:produces")]
-                    return
-                    for $literal in $producer/xqdoc:literal
-                    return map { xqdoc2openapi:process-literal($literal) : map { "schema": map { "type": "object" } } }
-                )
+                "200":
+                    map {
+                        "description": "Successful operation",
+                        "content" : map:merge(
+                            for $producer in $function//xqdoc:annotation[fn:starts-with(@name, "rest:produces")]
+                            return
+                            for $literal in $producer/xqdoc:literal
+                            return map { xqdoc2openapi:process-literal($literal) : map { "schema": map { "type": "object" } } }
+                        )
+                    }
             }
         else ()
 

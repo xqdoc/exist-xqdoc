@@ -22,6 +22,7 @@ declare namespace json="http://www.json.org";
 declare
     %rest:GET
     %rest:path("/xqdoc/openapi")
+    %rest:produces("application/json")
     %output:media-type("application/json")
     %output:method("json")
 function openapirest:get() {
