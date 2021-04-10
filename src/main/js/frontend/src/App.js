@@ -13,6 +13,8 @@ import '../node_modules/react-simple-tree-menu/dist/main.css';
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import './App.css';
+import ApplicationModules from "./ApplicationModules";
+import LibraryModule from "./LibraryModule";
 
 // <SwaggerClient
 //     uri={'http://petstore.swagger.io/v2/swagger.json'}
@@ -81,12 +83,8 @@ class App extends Component {
                               <h1>Swagger</h1>
                               <SwaggerUI url="/exist/restxq/xqdoc/openapi"></SwaggerUI>
                           </Route>
-                          <Route path="/Libraries/:libraryID">
-                              <h1>Library</h1>
-                          </Route>
-                          <Route path="/Applications/:applicationID">
-                              <h1>Application</h1>
-                          </Route>
+                          <Route path="/Libraries/:libraryID" component={LibraryModule}/>
+                          <Route path="/Applications/:applicationID" component={ApplicationModules}/>
                           <Route exact path="/">
                               <h1>Home</h1>
                           </Route>

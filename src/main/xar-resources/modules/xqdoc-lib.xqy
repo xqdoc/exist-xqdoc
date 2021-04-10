@@ -471,6 +471,18 @@ function xq:menu()
     }
 };
 
+declare
+%rest:GET
+%rest:path("/xqdoc/app/{$appName}")
+%rest:produces("application/json")
+%output:media-type("application/json")
+%output:method("json")
+function xq:app($appName as xs:string*)
+{
+    array {
+    }
+};
+
 (:~
   Gets the xqDoc of a module as JSON
   @param $module The URI of the module to display
