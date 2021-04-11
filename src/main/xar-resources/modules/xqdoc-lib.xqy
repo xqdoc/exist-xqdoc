@@ -483,6 +483,86 @@ function xq:app($appName as xs:string*)
     }
 };
 
+declare
+%rest:GET
+%rest:path("/xqdoc/library/{$libraryID}")
+%rest:produces("application/json")
+%output:media-type("application/json")
+%output:method("json")
+function xq:library-detail($libraryID as xs:string*)
+{
+    let $fundoc-uri := fn:replace(xmldb:decode-uri($libraryID), "~", "/")
+    let $xqDoc := fn:collection("/db/system/xqDoc/lib")//xqdoc:xqdoc[xqdoc:module/xqdoc:uri = $fundoc-uri]
+    let $module-comment := $xqDoc/xqdoc:module/xqdoc:comment
+    return
+        map {
+            "response":
+            if ($xqDoc)
+            then
+                map {
+                    "control": map {
+                        "date": $xqDoc/xqdoc:control/xqdoc:date/text(),
+                        "version": $xqDoc/xqdoc:control/xqdoc:version/text(),
+                        "location": $xqDoc/xqdoc:control/xqdoc:location/text()
+                    },
+                    "comment": xq:comment($module-comment),
+                    "uri": $xqDoc/xqdoc:module/xqdoc:uri/text(),
+                    "name":
+                    if ($xqDoc/xqdoc:module/xqdoc:name)
+                    then
+                        $xqDoc/xqdoc:module/xqdoc:name/text()
+                    else
+                        fn:false(),
+                    "dummy": array {(
+                            xq:variables($xqDoc/xqdoc:variables/xqdoc:variable, $fundoc-uri),
+                            xq:imports($xqDoc/xqdoc:imports/xqdoc:import),
+                            xq:functions($xqDoc/xqdoc:functions/xqdoc:function, $fundoc-uri)
+                        )},
+                    "invoked":
+                    array {
+                        xq:invoked(
+                            $xqDoc/xqdoc:module/xqdoc:invoked,
+                            $fundoc-uri,
+                            ($xqDoc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
+                    },
+                    "refVariables":
+                    array {
+                        xq:ref-variables(
+                            $xqDoc/xqdoc:module/xqdoc:ref-variable,
+                            $fundoc-uri,
+                            ($xqDoc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
+                    },
+                    "variables":
+                    if ($xqDoc/xqdoc:variables)
+                    then
+                        array {
+                            xq:variables($xqDoc/xqdoc:variables/xqdoc:variable, $fundoc-uri)
+                        }
+                    else
+                        fn:false(),
+                    "imports":
+                    if ($xqDoc/xqdoc:imports)
+                    then
+                        array {
+                            xq:imports($xqDoc/xqdoc:imports/xqdoc:import)
+                        }
+                    else
+                        fn:false(),
+                    "functions":
+                    if ($xqDoc/xqdoc:functions)
+                    then
+                        array {
+                            xq:functions($xqDoc/xqdoc:functions/xqdoc:function, $fundoc-uri)
+                        }
+                    else
+                        fn:false(),
+                    "body": fn:string-join($xqDoc/xqdoc:module/xqdoc:body/text(), " ")
+                }
+            else
+                fn:false()
+        }
+};
+
 (:~
   Gets the xqDoc of a module as JSON
   @param $module The URI of the module to display
@@ -548,70 +628,71 @@ $module as xs:string*
 )
 {
     let $decoded-module := if (fn:count($module) gt 0) then xmldb:decode($module[1]) else ""
-    let $doc := fn:doc($xqutil:XQDOC_ROOT_COLLECTION || $decoded-module)/xqdoc:xqdoc
-    let $module-comment := $doc/xqdoc:module/xqdoc:comment
+    let $xqDoc := fn:doc($xqutil:XQDOC_ROOT_COLLECTION || $decoded-module)/xqdoc:xqdoc
+    let $module-comment := $xqDoc/xqdoc:module/xqdoc:comment
     return
         map {
             "response":
-            if ($doc)
+            if ($xqDoc)
             then
                 map {
                     "control": map {
-                        "date": $doc/xqdoc:control/xqdoc:date/text(),
-                        "version": $doc/xqdoc:control/xqdoc:version/text()
+                        "date": $xqDoc/xqdoc:control/xqdoc:date/text(),
+                        "version": $xqDoc/xqdoc:control/xqdoc:version/text(),
+                        "location": $xqDoc/xqdoc:control/xqdoc:location/text()
                     },
                     "comment": xq:comment($module-comment),
-                    "uri": $doc/xqdoc:module/xqdoc:uri/text(),
+                    "uri": $xqDoc/xqdoc:module/xqdoc:uri/text(),
                     "name":
-                    if ($doc/xqdoc:module/xqdoc:name)
+                    if ($xqDoc/xqdoc:module/xqdoc:name)
                     then
-                        $doc/xqdoc:module/xqdoc:name/text()
+                        $xqDoc/xqdoc:module/xqdoc:name/text()
                     else
                         fn:false(),
                     "dummy": array {(
-                            xq:variables($doc/xqdoc:variables/xqdoc:variable, $decoded-module),
-                            xq:imports($doc/xqdoc:imports/xqdoc:import),
-                            xq:functions($doc/xqdoc:functions/xqdoc:function, $decoded-module)
+                            xq:variables($xqDoc/xqdoc:variables/xqdoc:variable, $decoded-module),
+                            xq:imports($xqDoc/xqdoc:imports/xqdoc:import),
+                            xq:functions($xqDoc/xqdoc:functions/xqdoc:function, $decoded-module)
                         )},
                     "invoked":
                     array {
                         xq:invoked(
-                            $doc/xqdoc:module/xqdoc:invoked,
+                            $xqDoc/xqdoc:module/xqdoc:invoked,
                             $decoded-module,
-                            ($doc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
+                            ($xqDoc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
                     },
                     "refVariables":
                     array {
                         xq:ref-variables(
-                            $doc/xqdoc:module/xqdoc:ref-variable,
+                            $xqDoc/xqdoc:module/xqdoc:ref-variable,
                             $decoded-module,
-                            ($doc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
+                            ($xqDoc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
                     },
                     "variables":
-                    if ($doc/xqdoc:variables)
+                    if ($xqDoc/xqdoc:variables)
                     then
                         array {
-                            xq:variables($doc/xqdoc:variables/xqdoc:variable, $decoded-module)
+                            xq:variables($xqDoc/xqdoc:variables/xqdoc:variable, $decoded-module)
                         }
                     else
                         fn:false(),
                     "imports":
-                    if ($doc/xqdoc:imports)
+                    if ($xqDoc/xqdoc:imports)
                     then
                         array {
-                            xq:imports($doc/xqdoc:imports/xqdoc:import)
+                            xq:imports($xqDoc/xqdoc:imports/xqdoc:import)
                         }
                     else
                         fn:false(),
                     "functions":
-                    if ($doc/xqdoc:functions)
+                    if ($xqDoc/xqdoc:functions)
                     then
                         array {
-                            xq:functions($doc/xqdoc:functions/xqdoc:function, $decoded-module)
+                            xq:functions($xqDoc/xqdoc:functions/xqdoc:function, $decoded-module)
                         }
                     else
                         fn:false(),
-                    "body": fn:string-join($doc/xqdoc:module/xqdoc:body/text(), " ")
+                    "body": fn:string-join($xqDoc/xqdoc:module/xqdoc:body/text(), " ")
                 }
             else
                 fn:false()
