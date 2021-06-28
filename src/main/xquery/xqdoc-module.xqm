@@ -5,10 +5,10 @@ xquery version "3.1";
  : in XQuery.
  :)
 module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util";
-import module namespace inspect = "http://exist-db.org/xquery/inspection" at "java:org.exist.xquery.functions.inspect.InspectionModule";
 import module namespace xmldb = "http://exist-db.org/xquery/xmldb";
 import module namespace xqp = "https://xqdoc.org/exist-db/ns/lib/xqdoc/parse";
 import module namespace dbutil="http://exist-db.org/xquery/dbutil";
+import module namespace inspect="http://exist-db.org/xquery/inspection" at "java:org.exist.xquery.functions.inspect.InspectionModule";
 import module namespace util = "http://exist-db.org/xquery/util";
 import module namespace sm ="http://exist-db.org/xquery/securitymanager";
 import module namespace  functx = "http://www.functx.com";

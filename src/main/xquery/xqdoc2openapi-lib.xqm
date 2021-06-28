@@ -206,6 +206,10 @@ as map(*)?
             else (),
             if ($function//xqdoc:annotation[@name = ("rest:PUT", "rest:POST")])
             then map { "requestBody": $request-body }
+            else (),
+            if ($function//xqdoc:deprecated)
+            then
+                map { "deprecated" : fn:true() }
             else ()
     ))
   else ()
