@@ -90,7 +90,7 @@
         <dependencySet>
             <groupId>org.xqdoc</groupId>
             <artifactId>xqdoc</artifactId>
-            <version>1.9.9.2</version>
+            <version>1.9.9.3-SNAPSHOT</version>
         </dependencySet>
         <dependencySet>
             <groupId>org.antlr</groupId>

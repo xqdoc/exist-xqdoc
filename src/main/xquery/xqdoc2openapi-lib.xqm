@@ -146,7 +146,7 @@ as map(*)?
 
     let $post-put := $function//xqdoc:annotation[fn:starts-with(@name, "rest:POST") or fn:starts-with(@name, "rest:PUT")]
     let $request-body :=
-        if ($post-put)
+        if ($post-put and $post-put/xqdoc:literal)
         then
             map {
                 "description": xqdoc2openapi:get-parameter-description($function, xqdoc2openapi:process-literal($post-put/xqdoc:literal[1])),

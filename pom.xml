@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.exist-db</groupId>
         <artifactId>exist-apps-parent</artifactId>
-        <version>1.9.1</version>
+        <version>1.10.0</version>
         <relativePath/>
     </parent>
 
     <groupId>org.xqdoc</groupId>
     <artifactId>exist-xqdoc</artifactId>
-    <version>0.5.5</version>
+    <version>0.5.7</version>
 
     <name>xqDoc Function Documentation</name>
     <description>Application and library to generate and display XQuery function documentation for eXist-db</description>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.xqdoc</groupId>
             <artifactId>xqdoc</artifactId>
-            <version>1.9.9.2</version>
+            <version>1.9.9.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
