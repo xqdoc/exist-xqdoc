@@ -32,7 +32,7 @@ as xs:string
 declare function xqdoc2openapi:get-string-parameter-description($function as node(), $param-name as xs:string)
 as xs:string
 {
-  let $param := $function/xqdoc:comment/xqdoc:param[fn:starts-with(., $param-name)]/text()
+  let $param := $function/xqdoc:comment/xqdoc:param[.=$param-name]/text()
 
   return
     if ($param)
