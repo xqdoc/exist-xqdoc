@@ -135,7 +135,7 @@ as map(*)?
             }
         else ()
 
-    let $tags-array := (
+    let $tags-array := for $tag in (
               if (fn:contains(fn:base-uri($function), "/db/apps/"))
               then
               fn:substring-before(fn:substring-after(fn:base-uri($function), "/db/apps/"), "/")
@@ -143,6 +143,8 @@ as map(*)?
               for $tag in $function//xqdoc:custom[@tag = 'openapi-tag']
               return fn:normalize-space($tag/text())
     )
+    order by $tag
+    return $tag
 
     let $post-put := $function//xqdoc:annotation[fn:starts-with(@name, "rest:POST") or fn:starts-with(@name, "rest:PUT")]
     let $request-body :=
