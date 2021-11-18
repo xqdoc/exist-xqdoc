@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import SwaggerUI from "swagger-ui-react"
 import "swagger-ui-react/swagger-ui.css"
 import TreeMenu from 'react-simple-tree-menu'
@@ -28,9 +30,11 @@ class App extends Component {
         super(props);
         // Don't call this.setState() here!
         this.state = {
+            isRegenerating: false,
             error: null,
             menu: []
-        }
+        };
+        this.regenerate = this.regenerate.bind(this);
     }
 
     componentDidMount() {
@@ -39,15 +43,31 @@ class App extends Component {
             .then(
                 (result) => {
                     this.setState({
+                        isRegenerating: false,
                         error:null,
                         menu: result
                     })
                 },
                 (error) => {
                     this.setState({
+                        isRegenerating: false,
                         error: error,
                         menu: []
                     })
+                }
+            )
+    }
+
+    regenerate() {
+        this.setState({isRegenerating: true});
+        fetch("modules/regenerate.xq")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({isRegenerating: false})
+                },
+                (error) => {
+                    this.setState({isRegenerating: false, error: error})
                 }
             )
     }
@@ -64,6 +84,20 @@ class App extends Component {
                       width="80"
                       height="40"
                   />{' '}XQuery Function Documentation</Navbar.Brand>
+              <Navbar.Collapse className="justify-content-end">
+                  <Button variant="secondary" onClick={this.regenerate} >
+                      {this.state.isRegenerating ?
+                          <Spinner
+                              as="span"
+                              animation="grow"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                          />
+                          : null}
+                      Regenerate
+                  </Button>
+              </Navbar.Collapse>
           </Navbar>
           <Container style={{marginTop: "70px"}} fluid>
               <Row xs={1}>
