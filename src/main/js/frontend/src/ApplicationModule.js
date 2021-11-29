@@ -3,11 +3,11 @@ import React from 'react';
 import { useParams } from "react-router-dom";
 import './App.css';
 
-function LibraryModule() {
-    let {libraryID} = useParams();
+function ApplicationModule() {
+    let {applicationID} = useParams();
     return (
-        <h1>Library {libraryID}</h1>
+        <h1>Application {applicationID}</h1>
     );
 }
 
-export default LibraryModule;
+export default ApplicationModule;

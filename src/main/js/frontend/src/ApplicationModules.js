@@ -1,16 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import ReactMarkdown from 'react-markdown'
-import gfm from 'remark-gfm'
+import React from 'react';
+import { Outlet } from "react-router-dom";
 import './App.css';
 
-class ApplicationModules extends Component {
-    render() {
-        return (
-            <h1>Application {this.props.match.params.applicationID}</h1>
-        )
-    }
+function ApplicationModules() {
+    return (
+        <Outlet/>
+    );
 }
 
 export default ApplicationModules;
