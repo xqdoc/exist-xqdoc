@@ -14,7 +14,7 @@
     "react-dom": "^16.14.0",
     "react-markdown": "^5.0.3",
     "react-router-bootstrap": "^0.25.0",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.0.2",
     "react-router-relative-link": "^4.0.2",
     "react-scripts": "^3.4.4",
     "react-simple-tree-menu": "^1.1.18",
