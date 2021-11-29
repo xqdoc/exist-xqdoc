@@ -18,7 +18,7 @@
     "react-router-relative-link": "^4.0.2",
     "react-scripts": "^3.4.4",
     "react-simple-tree-menu": "^1.1.18",
-    "remark-gfm": "^1.0.0",
+    "remark-gfm": "^3.0.1",
     "swagger-ui-react": "^3.52.5",
     "vendor-copy": "^3.0.1"
   },
