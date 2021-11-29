@@ -20,7 +20,7 @@
     "react-simple-tree-menu": "^1.1.18",
     "remark-gfm": "^1.0.0",
     "swagger-ui-react": "^3.52.5",
-    "vendor-copy": "^2.0.0"
+    "vendor-copy": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
