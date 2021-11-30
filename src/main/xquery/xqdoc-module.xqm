@@ -152,10 +152,6 @@ declare function xqutil:generate-internal-xqdoc($module as element(module)) {
             for $func in $module/function
             return
                 <xqdoc:function>
-                    <xqdoc:name>{if (fn:contains($func/@name/string(), ":"))
-    then fn:substring-after($func/@name/string(), ":")
-    else $func/@name/string() }</xqdoc:name>
-                    <xqdoc:signature>{xqutil:generate-signature($func)}</xqdoc:signature>
                     <xqdoc:comment>
                         <xqdoc:description>{$func/description/string()}</xqdoc:description>
                         {
@@ -174,6 +170,21 @@ declare function xqutil:generate-internal-xqdoc($module as element(module)) {
                                 ()
                         }
                     </xqdoc:comment>
+                    <xqdoc:name>{if (fn:contains($func/@name/string(), ":"))
+    then fn:substring-after($func/@name/string(), ":")
+    else $func/@name/string() }</xqdoc:name>
+                    <xqdoc:signature>{xqutil:generate-signature($func)}</xqdoc:signature>
+                    <xqdoc:parameters>{
+                        for $param in $func/argument
+                        return
+                            <xqdoc:parameter>
+                                <xqdoc:name>${$param/@var/string()}</xqdoc:name>
+                                <xqdoc:type occurrence="{xqutil:cardinality($param/@cardinality)}">{$param/@type/string()}</xqdoc:type>
+                            </xqdoc:parameter>
+                    }</xqdoc:parameters>
+                    <xqdoc:return>
+                        <xqdoc:type occurence="{xqutil:cardinality($func/returns/@cardinality)}">{$func/returns/@type/string()}</xqdoc:type>
+                    </xqdoc:return>
                 </xqdoc:function>
         }
         </xqdoc:functions>

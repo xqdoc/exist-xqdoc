@@ -127,7 +127,7 @@ declare function xq:functions($functions as node()*, $module-path as xs:string) 
                     map {
                         "name": fn:string-join($parameter/xqdoc:name/text(), " "),
                         "type": fn:string-join($parameter/xqdoc:type/text(), " "),
-                        "occurrence": xq:occurrence($parameter/xqdoc:type),
+                        "occurrence": $parameter/xqdoc:type/@occurrence/string(),
                         "description": $description
                     }
             },
@@ -141,7 +141,7 @@ declare function xq:functions($functions as node()*, $module-path as xs:string) 
                 "occurrence":
                 if (fn:string-length(xs:string($function/xqdoc:return/xqdoc:type)) gt 0)
                 then
-                    xq:occurrence($function/xqdoc:return/xqdoc:type)
+                    $function/xqdoc:return/xqdoc:type/@occurrence/string()
                 else
                     "",
                 "description":
@@ -479,8 +479,9 @@ declare
 %output:method("json")
 function xq:app($appName as xs:string*)
 {
-    array {
-    }
+    array {(
+
+    )}
 };
 
 (:~
@@ -616,4 +617,92 @@ $module as xs:string*
             else
                 fn:false()
         }
+};
+
+declare function xq:module-content($doc as element(xqdoc:xqdoc)?)
+{
+    let $module-comment := $doc/xqdoc:module/xqdoc:comment
+    return
+        map {
+            "response":
+            if ($doc)
+            then
+                let $decoded-module := fn:substring-after(fn:base-uri($doc), $xqutil:XQDOC_ROOT_COLLECTION)
+                return
+                map {
+                    "control": map {
+                        "date": $doc/xqdoc:control/xqdoc:date/text(),
+                        "version": $doc/xqdoc:control/xqdoc:version/text()
+                    },
+                    "comment": xq:comment($module-comment),
+                    "uri": $doc/xqdoc:module/xqdoc:uri/text(),
+                    "name":
+                    if ($doc/xqdoc:module/xqdoc:name)
+                    then
+                        $doc/xqdoc:module/xqdoc:name/text()
+                    else
+                        fn:false(),
+                    "dummy": array {(
+                            xq:variables($doc/xqdoc:variables/xqdoc:variable, $decoded-module),
+                            xq:imports($doc/xqdoc:imports/xqdoc:import),
+                            xq:functions($doc/xqdoc:functions/xqdoc:function, $decoded-module)
+                        )},
+                    "invoked":
+                    array {
+                        xq:invoked(
+                            $doc/xqdoc:module/xqdoc:invoked,
+                            $decoded-module,
+                            ($doc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
+                    },
+                    "refVariables":
+                    array {
+                        xq:ref-variables(
+                            $doc/xqdoc:module/xqdoc:ref-variable,
+                            $decoded-module,
+                            ($doc/xqdoc:module/xqdoc:uri/text(), "http://www.w3.org/2005/xquery-local-functions")[1])
+                    },
+                    "variables":
+                    if ($doc/xqdoc:variables)
+                    then
+                        array {
+                            xq:variables($doc/xqdoc:variables/xqdoc:variable, $decoded-module)
+                        }
+                    else
+                        fn:false(),
+                    "imports":
+                    if ($doc/xqdoc:imports)
+                    then
+                        array {
+                            xq:imports($doc/xqdoc:imports/xqdoc:import)
+                        }
+                    else
+                        fn:false(),
+                    "functions":
+                    if ($doc/xqdoc:functions)
+                    then
+                        array {
+                            xq:functions($doc/xqdoc:functions/xqdoc:function, $decoded-module)
+                        }
+                    else
+                        fn:false(),
+                    "body": fn:string-join($doc/xqdoc:module/xqdoc:body/text(), " ")
+                }
+            else
+                fn:false()
+        }
+};
+
+declare
+%rest:GET
+%rest:path("/xqdoc/library/{$tildedURI}")
+%rest:produces("application/json")
+%output:media-type("application/json")
+%output:method("json")
+function xq:get-lib(
+$tildedURI as xs:string*
+)
+{
+    let $decoded-uri := if (fn:count($tildedURI) gt 0) then xmldb:decode(fn:replace($tildedURI[1], "~", "/")) else ""
+    let $doc := fn:collection($xqutil:XQDOC_LIB_COLLECTION)//xqdoc:xqdoc[xqdoc:module/xqdoc:uri = $decoded-uri]
+    return xq:module-content($doc)
 };

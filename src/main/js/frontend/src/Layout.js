@@ -94,7 +94,7 @@ export default class Layout extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 <Container style={{marginTop: "70px"}} fluid>
-                    <Row xs={1}>
+                    <Row>
                         <Col md={4} xl={3} xs={12} className="sidenav"
                         >
                             <TreeMenu
@@ -105,7 +105,7 @@ export default class Layout extends Component {
                                 }}
                             />
                         </Col>
-                        <Col md={8} xl={7} xs={12} style={{marginLeft:450}}>
+                        <Col style={{marginLeft:450, marginRight: 20}}>
                             <Outlet/>
                         </Col>
                     </Row>
