@@ -5,7 +5,7 @@
   "homepage": ".",
   "proxy": "http://localhost:8080/",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.1.3",
@@ -13,12 +13,12 @@
     "react-bootstrap": "^2.0.3",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.1.1",
-    "react-router-dom": "^6.1.1",
-    "react-scripts": "^5.0.0",
+    "react-router-dom": "^6.0.2",
+    "react-scripts": "^4.0.3",
     "react-simple-tree-menu": "^1.1.18",
     "react-xml-viewer": "^1.3.0",
     "remark-gfm": "^3.0.1",
-    "swagger-ui-react": "^4.1.3",
+    "swagger-ui-react": "^4.1.2",
     "vendor-copy": "^3.0.1"
   },
   "scripts": {

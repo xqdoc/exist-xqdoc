@@ -6,8 +6,6 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import { Outlet } from "react-router-dom";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import TreeMenu from "react-simple-tree-menu";
 import '../node_modules/react-simple-tree-menu/dist/main.css';
 import './App.css';
@@ -94,9 +92,8 @@ export default class Layout extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 <Container style={{marginTop: "70px"}} fluid>
-                    <Row>
-                        <Col md={4} xl={3} xs={12} className="sidenav"
-                        >
+                    <div style={{width: "100vw", height: "100vh", display: "flex", flexDirection: "row"}}>
+                        <div style={{height: "100%", width: 300}}>
                             <TreeMenu
                                 data={this.state.menu}
                                 onClickItem={({key, label, ...props}) => {
@@ -104,11 +101,11 @@ export default class Layout extends Component {
                                     window.location.assign("/exist/apps/xqdoc/#/" + key);
                                 }}
                             />
-                        </Col>
-                        <Col style={{marginLeft:450, marginRight: 20}}>
+                        </div>
+                        <div style={{height: "100%", width: "100%", marginLeft: 50}}>
                             <Outlet/>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                 </Container>
             </>
         )
