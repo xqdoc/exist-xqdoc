@@ -13,7 +13,7 @@
     "react-bootstrap": "^2.0.3",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.1.1",
-    "react-router-dom": "^6.0.2",
+    "react-router-dom": "^6.1.1",
     "react-scripts": "^4.0.3",
     "react-simple-tree-menu": "^1.1.18",
     "react-xml-viewer": "^1.3.0",
