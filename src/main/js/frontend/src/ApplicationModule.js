@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import './App.css';
 
 function ApplicationModule() {
-    let {applicationID} = useParams();
+    let {applicationID, moduleID} = useParams();
     return (
-        <h1>Application {applicationID}</h1>
-    );
+        <div>
+            <h1>{applicationID}</h1>
+            <h2>{moduleID}</h2>
+        </div>
+    )
 }
 
 export default ApplicationModule;

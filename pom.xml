@@ -13,7 +13,7 @@
 
     <groupId>org.xqdoc</groupId>
     <artifactId>exist-xqdoc</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
 
     <name>xqDoc Function Documentation</name>
     <description>Application and library to generate and display XQuery function documentation for eXist-db</description>
@@ -66,6 +66,7 @@
 
         <xqdoc.module.namespace>https://xqdoc.org/exist-db/ns/lib/xqdoc/parse</xqdoc.module.namespace>
         <xqdoc.module.java.classname>XQDocModule</xqdoc.module.java.classname>
+        <antlr4-version>4.9.3</antlr4-version>
     </properties>
 
     <dependencies>
@@ -90,7 +91,7 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.9.3</version>
+            <version>${antlr4-version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
         <dependency>

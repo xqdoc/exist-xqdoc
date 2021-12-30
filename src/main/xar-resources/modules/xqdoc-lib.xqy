@@ -12,6 +12,7 @@ in a Polymer 3 webpage.
  :)
 module namespace xq = "http://xqdoc.org/restxq/resource/xqdoc";
 import module namespace xqutil = "https://xqdoc.org/exist-db/ns/lib/xqdoc/util" at "../content/xqdoc-module.xqm";
+import module namespace  functx = "http://www.functx.com";
 
 declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -479,9 +480,31 @@ declare
 %output:method("json")
 function xq:app($appName as xs:string*)
 {
-    array {(
+    map {
+        "response":
+            array {(
+                for $module in fn:collection($xqutil:XQDOC_ROOT_COLLECTION || "/db/apps/" || $appName)//xqdoc:xqdoc
+                let $module-comment := $module/xqdoc:module/xqdoc:comment
+                return
+                    map {
+                        "control": map {
+                            "date": $module/xqdoc:control/xqdoc:date/text(),
+                            "version": $module/xqdoc:control/xqdoc:version/text()
+                        },
+                        "type": $module/xqdoc:module/@type/string(),
+                        "comment": xq:comment($module-comment),
+                        "uri": $module/xqdoc:module/xqdoc:uri/text(),
+                        "name":
+                        if ($module/xqdoc:module/xqdoc:name)
+                        then
+                            $module/xqdoc:module/xqdoc:name/text()
+                        else
+                            fn:false(),
+                        "path": functx:substring-before-last(fn:substring-after(fn:base-uri($module), $xqutil:XQDOC_ROOT_COLLECTION || "/db/apps/" || $appName || "/"), ".xml")
+                    }
 
-    )}
+            )}
+    }
 };
 
 (:~
