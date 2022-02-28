@@ -1,4 +1,5 @@
 target/
+src/main/js/frontend/package-lock.json
 
 *.iml
 .idea/
