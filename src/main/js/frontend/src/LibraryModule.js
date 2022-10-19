@@ -34,7 +34,7 @@ function LibraryModule() {
                 {resultData.dummy ?
                     resultData.dummy.map((xqfunc) => {
                         return (
-                            <Card style={{width: "100%", marginBottom: 5}}>
+                            <Card key={resultData.name + ":" + xqfunc.name} style={{width: "100%", marginBottom: 5}}>
                                 <Card.Header>{resultData.name + ":" + xqfunc.name}</Card.Header>
                                 <Card.Body>
                                     <div style={{width: "100%", border: "thin solid black", padding: 3, marginBottom: 3}}>{resultData.name + ":" + xqfunc.name + "(" +
@@ -44,7 +44,7 @@ function LibraryModule() {
                                     + ") as " + xqfunc.return.type + (xqfunc.return.occurence ? xqfunc.return.occurence : "")}</div>
                                     <ReactMarkdown>{xqfunc.comment ? xqfunc.comment.description : ""}</ReactMarkdown>
                                     {xqfunc.comment.params.map((param) => {
-                                          return (<div>{param}</div>);
+                                          return (<div key={param}>{param}</div>);
                                         })}
                                     <div style={{marginTop: 5}}><b>Returns:</b></div>
                                     <ReactMarkdown>{xqfunc.return.description}</ReactMarkdown>

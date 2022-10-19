@@ -37,12 +37,12 @@ function ApplicationModuleList() {
                     resultData.response ?
                     resultData.response.map((mod) => {
                         return (
-                            <Card style={{width: "100%", marginBottom: 5}}>
+                            <Card key={mod.type} style={{width: "100%", marginBottom: 5}}>
                                 <Card.Header>{mod.type}</Card.Header>
                                 <Card.Body>
                                     <Card.Title><a  onClick={() =>
                                     {
-                                        navigate("/Application/" + applicationID + "/" + mod.path.replace("/", "~"))
+                                        navigate("/Application/" + applicationID + "/" + mod.path.replace(/\//g, "~"))
                                     }
                                     }>{mod.path}</a></Card.Title>
                                     <div style={{width: "100%", minHeight: 50, padding: 3, marginBottom: 3}}>

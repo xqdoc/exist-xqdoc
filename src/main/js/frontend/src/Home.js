@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import XMLViewer from 'react-xml-viewer'
+//import XMLViewer from 'react-xml-viewer'
 import './App.css';
 
 const xml = `<trigger event="update" className="org.exist.collections.triggers.XQueryTrigger">
@@ -22,7 +22,6 @@ export default class Home extends Component {
                     <li><p>Click the <b>Regenerate</b> button in the upper right</p></li>
                     <li>
                         <p>Add the following trigger to your applications' collection.xconf file:</p>
-                        <XMLViewer xml={xml} />
                     </li>
                 </ol>
                 <h2>RestAPIs</h2>
