@@ -32,7 +32,7 @@ as xs:string
 declare function xqdoc2openapi:get-string-parameter-description($function as node(), $param-name as xs:string)
 as xs:string
 {
-  let $param := $function/xqdoc:comment/xqdoc:param[.=$param-name]/text()
+  let $param := $function/xqdoc:comment/xqdoc:param[fn:starts-with(./text(), $param-name)]/text()
 
   return
     if ($param)
@@ -56,7 +56,7 @@ as map(*)
             }
         else (
             map {
-                "type": $type/text()
+                "type": if (fn:contains($type/text(), "xs:")) then fn:replace($type/text(), "xs:", "") else $type/text()
             },
             $enums,
             switch ($type/@occurrence/string())
@@ -88,6 +88,7 @@ return
         map{ "name": $name },
         map{ "in": $in },
         map{ "description": $description },
+        map{ "required": ($in eq "path") },
         if ($in = "body")
         then
             map { "schema": map { "type": "object" } }

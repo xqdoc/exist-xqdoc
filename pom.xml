@@ -13,7 +13,7 @@
 
     <groupId>org.xqdoc</groupId>
     <artifactId>exist-xqdoc</artifactId>
-    <version>0.7.3</version>
+    <version>0.7.4</version>
 
     <name>xqDoc Function Documentation</name>
     <description>Application and library to generate and display XQuery function documentation for eXist-db</description>
