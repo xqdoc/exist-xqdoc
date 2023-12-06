@@ -66,7 +66,7 @@
 
         <xqdoc.module.namespace>https://xqdoc.org/exist-db/ns/lib/xqdoc/parse</xqdoc.module.namespace>
         <xqdoc.module.java.classname>XQDocModule</xqdoc.module.java.classname>
-        <antlr4-version>4.13.0</antlr4-version>
+        <antlr4-version>4.13.1</antlr4-version>
         <xqdoc.version>1.9.9.3-SNAPSHOT</xqdoc.version>
         <commons-cli.version>1.6.0</commons-cli.version>
         <joda-time.version>2.12.5</joda-time.version>
